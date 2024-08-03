@@ -8,7 +8,7 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-export function TabsBer({ info }) {
+export function TabsBer({ data }) {
   const head = [
     {
       label: "Running Order",
@@ -29,34 +29,10 @@ export function TabsBer({ info }) {
     },
   ];
 
-  const Dashboard = () => (
-    <div>
-      It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people
-      who are like offended by it, it doesn't matter.
-    </div>
-  );
-
-  const Profile = () => (
-    <div>
-      Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.
-    </div>
-  );
-
-  const data = [
-    {
-      label: "Running Order",
-      Component: Dashboard,
-    },
-    {
-      label: "Confirm Order",
-      Component: Profile,
-    },
-  ];
+  
 
   return (
-    <Tabs value="Running Order" className='my-4'>
+    <Tabs value="Running Order" className='my-6'>
       <TabsHeader>
         {head.map(({ label, icon }, idx) => (
           <Tab key={idx} value={label}>

@@ -7,10 +7,12 @@ import {
   onAuthStateChanged,
   signOut,
   updateProfile,
+  updatePassword,
 } from "firebase/auth";
 
 import app from "../firebase/firebase.config";
 import useAxiosSecure from "../Hook/useAxios";
+import { toast } from 'react-hot-toast';
 
 const auth = getAuth(app);
 
@@ -82,6 +84,28 @@ const AuthContext = ({ children }) => {
     return data;
   };
 
+
+
+  const changePassword = async (newPassword) => {
+    if (auth.currentUser) {
+        try {
+            await updatePassword(auth.currentUser, newPassword);
+            toast.success("Password updated successfully");
+        } catch (error) {
+            console.error("Error updating password:", error);
+            toast.error("Failed to update password. Please try again.");
+        }
+    } else {
+        toast.error("No user is signed in.");
+    }
+};
+
+
+
+
+
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -106,7 +130,7 @@ const AuthContext = ({ children }) => {
     logOut,
     loading,
     setLoading,
-
+    changePassword,
     setUser,
     open,
     setOpen,

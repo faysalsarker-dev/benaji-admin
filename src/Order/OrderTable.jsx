@@ -7,6 +7,10 @@ const TABLE_HEAD = ["Phone", "quantity", "date",""];
 
  
 export default function OrderTable({data}) {
+
+
+  
+
   return (
     <Card className="h-full w-full overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
@@ -32,7 +36,7 @@ export default function OrderTable({data}) {
           {data.map(({ quantity, date,phone,_id }, index) => {
             const isLast = index === data.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
- 
+            const formattedDate = new Date(date).toLocaleDateString('en-GB');
             return (
               <tr key={index}>
                 <td className={classes}>
@@ -59,7 +63,7 @@ export default function OrderTable({data}) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {date}
+                    {formattedDate}
                   </Typography>
                 </td>
                

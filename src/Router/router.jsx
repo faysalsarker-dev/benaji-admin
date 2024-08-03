@@ -10,6 +10,7 @@ import Order_2 from "../orderPage/Order_2";
 import Order_3 from "../orderPage/Order_3";
 import Details from "../page/Details";
 import RouterProtector from "./RouterProtector";
+import ChangePassword from "../page/ChangePass";
 
 
 
@@ -48,12 +49,17 @@ const router = createBrowserRouter([
                 path:'/Order-Details/:id',
                 element:<Details/>
             },
+            {
+                path:'/Change-password',
+                element:<ChangePassword/>
+            },
         ]
     },
     {
         path:'/login',
         element:<Login/>
     },
+
     {
         path:'/register',
         element:<Register/>

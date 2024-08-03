@@ -1,33 +1,39 @@
-import { useQuery } from "@tanstack/react-query";
+
+
 import { TabsBer } from "../component/TabsBer";
-import useAxiosSecure from "../Hook/useAxios";
+import useFetchData from "../Hook/useFetchData";
 import OrderTable from "../Order/OrderTable";
 import { ScaleLoader } from 'react-spinners';
 
-
 const Order_1 = () => {
-    const axiosSecure = useAxiosSecure();
+    const { data: pendingOrders, isLoading: isPendingLoading } = useFetchData('/pending-order-1', 'Order-pending-1');
+    const { data: confirmOrders, isLoading: isConfirmLoading } = useFetchData('/confirm-order-1', 'Order-confirm-1');
 
-    const { data=[],isLoading } = useQuery({
-      queryKey: ["Order-1"],
-      queryFn: async () => {
-        const { data } = await axiosSecure.get(`/order-1`);
-        return data;
-      },
-    });
-  
+    const tabsData = [
+        {
+            label: "Running Order",
+            Component: () => <OrderTable data={pendingOrders} />,
+        },
+        {
+            label: "Confirm Order",
+            Component: () => <OrderTable data={confirmOrders} />,
+        },
+    ];
 
-
-    if(isLoading){
-      return <div className="h-screen flex justify-center items-center"><ScaleLoader color="green" /></div>
-   }
-
+    if (isPendingLoading || isConfirmLoading) {
+        return (
+            <div className="h-screen flex justify-center items-center">
+                <ScaleLoader color="green" />
+            </div>
+        );
+    }
 
     return (
         <div>
-            <h2 className="text-center text-3xl font-extrabold my-4 border-b-2 pb-2 border-green-500">Order 1 Page - <span className="bg-green-400 px-2 rounded-lg text-white">{data.length}</span></h2>
-           
-            <OrderTable data={data} />
+            <h2 className="text-center text-3xl font-extrabold my-4 border-b-2 pb-2 border-green-500">
+                Order 1 Page
+            </h2>
+            <TabsBer data={tabsData} />
         </div>
     );
 };

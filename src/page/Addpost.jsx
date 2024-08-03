@@ -64,7 +64,6 @@ const Addpost = () => {
         image: imgData.data.display_url,
         ...data,
         date: new Date(),
-        status:'pending',
         type: value
       };
       console.log(newData);
@@ -99,7 +98,7 @@ const Addpost = () => {
             <Typography variant="h6" color="blue-gray">
               খাবার নিয়ম
             </Typography>
-            <Input
+            <Textarea
               size="lg"
               placeholder="খাবার নিয়ম লিখুন"
               {...register("rules", { required: "এই ক্ষেত্রটি পূরণ করা আবশ্যক" })}
@@ -168,11 +167,26 @@ const Addpost = () => {
               label="ধরণ নির্বাচন করুন"
               value={value}
               onChange={(val) => setValue(val)}
-              className="border-blue-gray-200 focus:border-gray-900"
+              
             >
               <Option value="file">ফাইল</Option>
               <Option value="piece">পিস</Option>
             </Select>
+
+
+
+            <Typography variant="h6" color="blue-gray">
+            উপকারিতার শিরোনাম
+            </Typography>
+            <Textarea
+              size="lg"
+              placeholder="উপকারিতা শিরোনাম"
+              {...register("benefitHeadline", { required: "এই ক্ষেত্রটি পূরণ করা আবশ্যক" })}
+              className="border-blue-gray-200 focus:border-gray-900"
+            />
+            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
+
 
             <Typography variant="h6" color="blue-gray">
               উপকারিতা
